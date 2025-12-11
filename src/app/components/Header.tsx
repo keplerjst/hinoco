@@ -1,7 +1,7 @@
 const Header = () => {
   return (
     <header>
-      <h1 className="text-3xl font-bold">Preact SSR on Cloudflare Workers</h1>
+      <h1>Preact SSR on Cloudflare Workers</h1>
       <div className="flex justify-center gap-2">
         <a className="p-1 hover:bg-gray-100" href="/">
           Home

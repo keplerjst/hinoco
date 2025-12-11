@@ -1,1 +1,19 @@
 @import 'tailwindcss';
+
+@layer base {
+  h1 {
+    @apply text-4xl font-bold mb-4;
+  }
+  h2 {
+    @apply text-3xl font-semibold mb-3;
+  }
+  h3 {
+    @apply text-2xl font-semibold mb-2;
+  }
+  p {
+    @apply mb-4 leading-relaxed;
+  }
+  ul {
+    @apply list-disc list-inside mb-4;
+  }
+}
