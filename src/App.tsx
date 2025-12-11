@@ -1,4 +1,4 @@
-import { ErrorBoundary, LocationProvider, Router } from 'preact-iso'
+import { ErrorBoundary, LocationProvider, Router, Route } from 'preact-iso'
 import About from './app/About'
 import Home from './app/Home'
 
@@ -7,8 +7,8 @@ const App = () => {
     <LocationProvider>
       <ErrorBoundary>
         <Router>
-          <Home path="/" />
-          <About path="/about" />
+          <Route path="/" component={Home} />
+          <Route path="/about" component={About} />
         </Router>
       </ErrorBoundary>
     </LocationProvider>
