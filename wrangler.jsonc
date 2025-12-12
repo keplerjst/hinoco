@@ -14,7 +14,7 @@
       "binding": "DB",
       "database_name": "hono-preact-on-cloudflare-db",
       "database_id": "9aaf7222-da79-4967-915e-d7080b66edac",
-      "migrations_dir": "drizzle/migrations"
+      "migrations_dir": "drizzle"
     }
   ]
 }
