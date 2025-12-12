@@ -39,7 +39,7 @@ const app = new Hono<{ Bindings: Bindings }>()
 
 ```bash
 # This writes `d1_databases` section in wrangler.jsonc
-# Rename hinoco-db and DB to whatever you like
+# Rename database_name(hinoco-db) and binding(DB) to whatever you like
 ❯ npx wrangler@latest d1 create hinoco-db
 ✅ Successfully created DB hinoco-db in region XXX
 Created your new D1 database.
