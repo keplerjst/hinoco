@@ -2,7 +2,24 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link href="/src/style.css" rel="stylesheet" />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background: #fff;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="/src/style.css"
+      media="print"
+      onload="this.media='all'"
+    />
     <!--head-->
   </head>
   <body>
