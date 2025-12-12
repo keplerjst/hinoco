@@ -69,11 +69,7 @@ counts 2 columns 0 indexes 0 fks
 ```
 
 ```bash
-❯ npx wrangler d1 migrations apply
-
-🌀 Executing on local database hinoco-db from .wrangler/state/v3/d1:
-🌀 To execute on your remote database, add a --remote flag to your wrangler command.
-🚣 1 command executed successfully.
+❯ npx wrangler d1 migrations apply hinoco-db                                                                                                                                  ~/dev/hinoco
 ```
 
 ```bash
