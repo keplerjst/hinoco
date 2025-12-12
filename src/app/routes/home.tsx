@@ -1,7 +1,7 @@
 import { hc } from 'hono/client'
-import type { ApiType } from '../api'
+import type { ApiType } from '../../api'
 import { useEffect, useState } from 'preact/hooks'
-import Header from './components/Header'
+import Header from '../components/Header'
 
 const Home = () => {
   const [message, setMessage] = useState('')

@@ -1,6 +1,6 @@
 import { ErrorBoundary, LocationProvider, Router, Route } from 'preact-iso'
-import About from './app/About'
-import Home from './app/Home'
+import About from './app/routes/about'
+import Home from './app/routes/home'
 
 const App = () => {
   return (
