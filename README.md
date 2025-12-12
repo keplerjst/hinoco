@@ -2,9 +2,9 @@
 
 An opinionated template for Hono + Preact on Cloudflare stack.
 
-- Hono + Preact with SSR, hydration and routing
-- TailwindCSS
-- Vite
+- Hono + Preact
+- SSR, Hydration, Routing, Data Loader
+- Vite + TailwindCSS
 - Cloudflare Worker (deployment via Github Actions)
 - Cloudflare D1 + Drizzle ORM
 
