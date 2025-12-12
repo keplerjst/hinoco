@@ -39,7 +39,7 @@ const app = new Hono<{ Bindings: Bindings }>()
 
 ```bash
 # This writes `d1_databases` section in wrangler.jsonc
-# Rename hinoco-db to whatever you like
+# Rename hinoco-db and DB to whatever you like
 ❯ npx wrangler@latest d1 create hinoco-db
 ✅ Successfully created DB hinoco-db in region XXX
 Created your new D1 database.
@@ -47,7 +47,7 @@ Created your new D1 database.
 {
   "d1_databases": [
     {
-      "binding": "DB", # Rename this whatever you like
+      "binding": "DB",
       "database_name": "hinoco-db",
       "database_id": "<unique-ID-for-your-database>"
     }
@@ -62,7 +62,6 @@ Drizzle generates migration script based on the schema:
 ```bash
 ❯ pnpm drizzle-kit generate
 No config path provided, using default 'drizzle.config.ts'
-Reading config file '/Users/nozoe/dev/hono-preact-on-cloudflare/drizzle.config.ts'
 1 tables
 counts 2 columns 0 indexes 0 fks
 
