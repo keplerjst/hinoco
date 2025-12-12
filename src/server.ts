@@ -4,7 +4,7 @@ import App from './App'
 import api from './api'
 import { ssr } from './lib/ssr'
 
-type CloudflareBindings = {
+export type CloudflareBindings = {
   ASSETS: Fetcher
   DB: D1Database
 }

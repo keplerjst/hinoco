@@ -1,13 +1,9 @@
-import type { Fetcher } from '@cloudflare/workers-types'
 import type { MiddlewareHandler } from 'hono'
 import { StatusCode } from 'hono/utils/http-status'
 import { JSX } from 'preact'
 import { prerender } from 'preact-iso'
 import { locationStub } from 'preact-iso/prerender'
-
-type Env = {
-  ASSETS: Fetcher
-}
+import { CloudflareBindings } from '../server'
 
 export type SSRElement = () => JSX.Element
 
@@ -21,7 +17,7 @@ type SSROptions = {
 export const ssr = (
   App: SSRElement,
   options?: Partial<SSROptions>
-): MiddlewareHandler<{ Bindings: Env }> => {
+): MiddlewareHandler<{ Bindings: CloudflareBindings }> => {
   return async (c, next) => {
     console.log('ssr!')
     const path = new URL(c.req.url).pathname
