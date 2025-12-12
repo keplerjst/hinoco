@@ -1,6 +1,6 @@
 # Hono + Preact on Cloudflare
 
-This repository is an original boilerplate for "12 web apps in 12 months".
+This is an original boilerplate for my favorite tech stack:
 
 - Hono + Preact with SSR, hydration and routing
 - TailwindCSS
@@ -8,27 +8,36 @@ This repository is an original boilerplate for "12 web apps in 12 months".
 - Cloudflare Worker
 - Cloudflare D1 + Drizzle ORM
 
-## Cloudflare D1
+# Usage
 
-Delete `d1_databases` section in wrangler.jsonc before doing this:
+## Cloudflare D1 + Drizzle ORM
 
-```txt
-npx wrangler@latest d1 create <db_name>
+```bash
+# This writes `d1_databases` section in wrangler.jsonc
+npx wrangler@latest d1 create your-db
 ```
 
-```txt
-✅ Successfully created DB <db_name> in region XXX
+```bash
+✅ Successfully created DB your-db in region XXX
 Created your new D1 database.
 
 {
   "d1_databases": [
     {
-      "binding": "<db_name>",
-      "database_name": "<db_name>",
+      "binding": "your-db", # Rename this whatever you like such as "DB"
+      "database_name": "your-db",
       "database_id": "<unique-ID-for-your-database>"
     }
   ]
 }
+```
+
+Configuration file is placed at `drrizzle.config.ts`, in which I defined schema at `src/db/schema.ts`.
+
+Drizzle generates migration script based on the schema:
+
+```bash
+pnpm drizzle-kit generate
 ```
 
 ### References
