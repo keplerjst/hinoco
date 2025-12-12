@@ -1,8 +1,8 @@
 import { D1Database, Fetcher } from '@cloudflare/workers-types'
 import { Hono } from 'hono'
-import App from './App'
 import api from './api'
-import { ssr } from './lib/ssr'
+import { ssrWithLoader } from './lib/ssr'
+import { routes } from './routes'
 
 export type CloudflareBindings = {
   ASSETS: Fetcher
@@ -12,6 +12,9 @@ export type CloudflareBindings = {
 const app = new Hono<{ Bindings: CloudflareBindings }>()
 
 app.route('/api', api)
-app.get('*', ssr(App))
+
+routes.forEach((route) => {
+  app.get(route.path, ssrWithLoader(route))
+})
 
 export default app

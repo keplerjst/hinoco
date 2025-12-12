@@ -3,5 +3,10 @@ import { defineConfig } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  plugins: [cloudflare(), tailwindcss()],
+  plugins: [
+    cloudflare({
+      viteEnvironment: { name: 'ssr' },
+    }),
+    tailwindcss(),
+  ],
 })

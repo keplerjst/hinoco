@@ -1,21 +1,34 @@
+import type { Context } from 'hono'
 import { hc } from 'hono/client'
+import { useState } from 'preact/hooks'
+import { drizzle } from 'drizzle-orm/d1'
+import { counter } from '../../db/schema'
+import type { CloudflareBindings } from '../../server'
 import type { ApiType } from '../../api'
-import { useEffect, useState } from 'preact/hooks'
 import Header from '../components/Header'
 
-const Home = () => {
-  const [message, setMessage] = useState('')
-  const [count, setCount] = useState(0)
+// loader: SSR時にデータ取得
+export const loader = async (c: Context<{ Bindings: CloudflareBindings }>) => {
+  const db = drizzle(c.env.DB)
+  const result = await db.select().from(counter).all()
+  console.log('result: ', result)
+  return { count: result.length }
+}
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const api = hc<ApiType>('/api')
-      const res = await api.hello.$get()
-      const data = await res.json()
-      setMessage(data.message)
-    }
-    fetchData()
-  }, [])
+export type LoaderData = Awaited<ReturnType<typeof loader>>
+
+// Component: ページコンポーネント
+export const Component = ({ count: initialCount }: LoaderData) => {
+  const [count, setCount] = useState(initialCount)
+  console.log('count: ', count)
+
+  const handleClick = async () => {
+    alert('handleClick')
+    const api = hc<ApiType>('/api')
+    const res = await api.count.$post()
+    const data = await res.json()
+    setCount(data.count)
+  }
 
   return (
     <div className="max-w-3xl mx-auto my-8 text-center">
@@ -23,17 +36,11 @@ const Home = () => {
       <div className="my-4">
         <button
           className="py-1 px-2 bg-gray-700 text-white"
-          onClick={() => setCount((count) => count + 1)}
+          onClick={handleClick}
         >
           count is {count}
         </button>
       </div>
-      <div className="my-4">
-        <h2 className="text-xl">Message from API</h2>
-        <p>{message}</p>
-      </div>
     </div>
   )
 }
-
-export default Home

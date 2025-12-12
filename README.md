@@ -83,6 +83,10 @@ Use --remote if you want to access the remote instance.
 🚣 1 command executed successfully.
 ```
 
+```bash
+npx wrangler d1 execute hono-preact-on-cloudflare-db --local --command="SELECT * FROM counts"
+```
+
 ### References
 
 - [Drizzle <> Cloudflare D1](https://orm.drizzle.team/docs/connect-cloudflare-d1)
