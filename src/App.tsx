@@ -1,5 +1,6 @@
 import { ErrorBoundary, LocationProvider, Router, Route } from 'preact-iso'
 import { routes } from './routes'
+import { ThemeProvider } from './app/components/ThemeProvider'
 
 // クライアント側で初期データを取得
 const getInitialData = () => {
@@ -15,19 +16,21 @@ const App = () => {
   const initialData = getInitialData()
 
   return (
-    <LocationProvider>
-      <ErrorBoundary>
-        <Router>
-          {routes.map(({ path, Component }) => (
-            <Route
-              key={path}
-              path={path}
-              component={() => <Component {...initialData} />}
-            />
-          ))}
-        </Router>
-      </ErrorBoundary>
-    </LocationProvider>
+    <ThemeProvider>
+      <LocationProvider>
+        <ErrorBoundary>
+          <Router>
+            {routes.map(({ path, Component }) => (
+              <Route
+                key={path}
+                path={path}
+                component={() => <Component {...initialData} />}
+              />
+            ))}
+          </Router>
+        </ErrorBoundary>
+      </LocationProvider>
+    </ThemeProvider>
   )
 }
 

@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 
+/* Dark mode variant */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* https://tailwindcss.com/docs/preflight */
 @layer base {
   h1 {
@@ -23,5 +26,8 @@
   a {
     color: var(--color-blue-600);
     text-decoration-line: underline;
+  }
+  .dark a {
+    color: var(--color-blue-400);
   }
 }
