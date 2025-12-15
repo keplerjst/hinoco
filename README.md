@@ -1,81 +1,93 @@
 # Hinoco
 
-An opinionated template for Hono + Preact on Cloudflare stack.
+An opinionated full-stack template for building modern web apps on Cloudflare.
 
+## Features
+
+- SSR, Hydration, Routing and Data Loader
 - Hono + Preact
-- SSR, Hydration, Routing, Data Loader
-- Vite + TailwindCSS
-- Cloudflare Worker (deployment via Github Actions)
+- Vite
+- Tailwind CSS
+- Cloudflare Workers
 - Cloudflare D1 + Drizzle ORM
+- Dark mode support
 
-# Usage
+## Demo
+
+https://hinoco.keplerjst.workers.dev/
+
+## Prerequisites
+
+- Node.js v18+
+- pnpm
+- Cloudflare account
+- Wrangler CLI
+
+## Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/yourname/hinoco.git
+cd hinoco
+```
+
+### 2. Install dependencies
 
 ```bash
 pnpm install
+```
+
+### 3. Create a D1 database
+
+```bash
+npx wrangler d1 create hinoco-db
+```
+
+This command automatically updates `wrangler.jsonc`. Remove the duplicate `d1_databases` entry if needed.
+
+### 4. Run migrations (local)
+
+```bash
+npx wrangler d1 migrations apply hinoco-db --local
+```
+
+### 5. Start development server
+
+```bash
 pnpm run dev
 ```
 
-```bash
-pnpm run deploy # Don't miss `run`, otherwise pnpm tries to deploy as pnpm package
-```
+## Deployment
 
-[For generating/synchronizing types based on your Worker configuration run](https://developers.cloudflare.com/workers/wrangler/commands/#types):
+This project uses GitHub Actions for automatic deployment. On every push to `main`, it will:
 
-```txt
-pnpm run cf-typegen
-```
+1. Build the project
+2. Run D1 migrations
+3. Deploy to Cloudflare Workers
 
-Pass your Cloudflare Bindings as generics when instantiation `Hono`:
+### Setup GitHub Secrets
 
-```ts
-// src/server.ts
-type Bindings = {
-  DB: D1Database
-}
-const app = new Hono<{ Bindings: Bindings }>()
-```
+Add the following secrets to your repository (Settings → Secrets and variables → Actions):
 
-## Cloudflare D1 + Drizzle ORM
+- `CLOUDFLARE_API_TOKEN` - Create at [Cloudflare API Tokens](https://dash.cloudflare.com/profile/api-tokens)
+- `CLOUDFLARE_ACCOUNT_ID` - Found in your Cloudflare dashboard URL
+
+### Manual deployment (optional)
 
 ```bash
-# This writes `d1_databases` section in wrangler.jsonc
-# Rename database_name(hinoco-db) and binding(DB) to whatever you like
-❯ npx wrangler@latest d1 create hinoco-db
-✅ Successfully created DB hinoco-db in region XXX
-Created your new D1 database.
-
-{
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "hinoco-db",
-      "database_id": "<unique-ID-for-your-database>"
-    }
-  ]
-}
+npx wrangler d1 migrations apply hinoco-db --remote
+pnpm run deploy
 ```
 
-Configuration file is placed at `drizzle.config.ts`, in which I defined schema at `src/db/schema.ts`.
+## Database
 
-Drizzle generates migration script based on the schema:
+Schema is defined in `src/db/schema.ts`. To generate new migrations:
 
 ```bash
-❯ pnpm drizzle-kit generate
-No config path provided, using default 'drizzle.config.ts'
-1 tables
-counts 2 columns 0 indexes 0 fks
-
-[✓] Your SQL migration file ➜ drizzle/0000_xxx.sql 🚀
+npx drizzle-kit generate
 ```
 
-```bash
-❯ npx wrangler d1 migrations apply hinoco-db                                                                                                                                  ~/dev/hinoco
-```
+## License
 
-```bash
-npx wrangler d1 execute hinoco-db --local --command="SELECT * FROM counts"
-```
-
-### References
-
-- [Drizzle <> Cloudflare D1](https://orm.drizzle.team/docs/connect-cloudflare-d1)
+MIT
