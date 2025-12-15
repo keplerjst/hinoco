@@ -122,6 +122,10 @@ Schema is defined in `src/db/schema.ts`. To generate new migrations:
 npx drizzle-kit generate
 ```
 
+## Author
+
+Built by [@keplerjst](https://x.com/keplerjst)
+
 ## License
 
 MIT
